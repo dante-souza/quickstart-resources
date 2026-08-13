@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 from contextlib import AsyncExitStack
 from pathlib import Path
 
@@ -43,8 +44,10 @@ class MCPClient:
         if is_python:
             path = Path(server_script_path).resolve()
             server_params = StdioServerParameters(
-                command="uv",
-                args=["--directory", str(path.parent), "run", path.name],
+                # command="uv",
+                # args=["--directory", str(path.parent), "run", path.name],
+                command=sys.executable,
+                args=[str(path)],
                 env=None,
             )
         else:
@@ -160,6 +163,6 @@ async def main():
 
 
 if __name__ == "__main__":
-    import sys
+    # import sys
 
     asyncio.run(main())
